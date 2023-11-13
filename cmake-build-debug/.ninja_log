@@ -1,0 +1,12 @@
+# ninja log v5
+2	387	1699867095828148133	CMakeFiles/restaurante_app.dir/chef.cpp.o	a90d9981dc1fe56d
+0	106	1699868150675811985	build.ninja	1cd350e2cc54e5d3
+1	406	1699867095847556224	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	7b2a7c234b34bdd6
+1	453	1699867095893861840	CMakeFiles/restaurante_app.dir/main.cpp.o	75b3c0facdfb9024
+453	485	1699867095927225508	restaurante_app	ab0c697087e1b20b
+0	6	0	clean	eab1f8b1db7ee315
+1	540	1699868175410856117	CMakeFiles/restaurante_app.dir/chef.cpp.o	ba9aa27862df5799
+1	542	1699868175414123528	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	fa415a8d339c570a
+1	576	1699868175448664797	CMakeFiles/restaurante_app.dir/main.cpp.o	955347f499ee003
+577	611	1699868175483755107	restaurante_app	ab0c697087e1b20b
+0	6	0	clean	eab1f8b1db7ee315

@@ -1,0 +1,53 @@
+#ifndef RESTAURANTE_APP_RESTAURANTE_H
+#define RESTAURANTE_APP_RESTAURANTE_H
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include "chef.h"
+
+// Caso queira usar uma estrutura para armazenar as informações de um pedido...
+struct Pedido {
+    unsigned int mesa;
+    std::string pedido;
+};
+
+class Restaurante {
+public:
+
+    /**
+     * Cria um objeto Restaurante contendo uma quantidade definida de chefs e de mesas.
+     *
+     * @param qtdChefs número de chefs
+     * @param qtdMesas número de mesas
+     */
+    Restaurante(unsigned int qtdChefs, unsigned int qtdMesas);
+
+    /**
+     * Informa um pedido ao restaurante.
+     *
+     * @param mesa
+     * @param item
+     */
+    void fazerPedido(unsigned int mesa, const std::string &item);
+    void finalizarMesa(unsigned int mesa);
+
+private:
+    static const unsigned int MAX_CHEFS = 100;
+
+    std::vector<Chef> chefs;
+
+    // Como armazenar as informações das mesas?
+    // Como armazenar os pedidos em espera?
+
+    /**
+     * Retorna um ponteiro para o Chef que está atendendo a mesa.
+     *
+     * @param mesa número da mesa
+     * @return um ponteiro para o Chef
+     */
+    Chef *getChef(unsigned int mesa);
+};
+
+
+#endif //RESTAURANTE_APP_RESTAURANTE_H

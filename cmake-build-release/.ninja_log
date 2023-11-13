@@ -1,0 +1,6 @@
+# ninja log v5
+0	208	1699867096195166223	build.ninja	10c594ddf2706f9
+0	398	1699867096631032196	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	90a6295de3774d32
+0	400	1699867096631515864	CMakeFiles/restaurante_app.dir/chef.cpp.o	cb5c578144df047b
+0	433	1699867096665697492	CMakeFiles/restaurante_app.dir/main.cpp.o	ba5ec7b0d735cc76
+433	464	1699867096698060157	restaurante_app	486541ed3ba6759f

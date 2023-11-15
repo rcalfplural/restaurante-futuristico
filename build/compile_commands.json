@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/workspaces/restaurante-futuristico/build",
+  "command": "/usr/bin/g++ -g -std=gnu++23 -o CMakeFiles/restaurante_app.dir/main.cpp.o -c /workspaces/restaurante-futuristico/main.cpp",
+  "file": "/workspaces/restaurante-futuristico/main.cpp"
+},
+{
+  "directory": "/workspaces/restaurante-futuristico/build",
+  "command": "/usr/bin/g++ -g -std=gnu++23 -o CMakeFiles/restaurante_app.dir/restaurante.cpp.o -c /workspaces/restaurante-futuristico/restaurante.cpp",
+  "file": "/workspaces/restaurante-futuristico/restaurante.cpp"
+},
+{
+  "directory": "/workspaces/restaurante-futuristico/build",
+  "command": "/usr/bin/g++ -g -std=gnu++23 -o CMakeFiles/restaurante_app.dir/chef.cpp.o -c /workspaces/restaurante-futuristico/chef.cpp",
+  "file": "/workspaces/restaurante-futuristico/chef.cpp"
+}
+]

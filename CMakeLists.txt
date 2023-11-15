@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.22)
 project(restaurante_app)
 
 set(CMAKE_CXX_STANDARD 23)

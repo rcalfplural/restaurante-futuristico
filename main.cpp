@@ -78,6 +78,5 @@ int processarEntrada(std::istream &entrada) {
  *          1 (EXIT_FAILURE) quando a aplicação é encerrada devido a uma falha.
  */
 int main() {
-
     return processarEntrada(std::cin);
 }

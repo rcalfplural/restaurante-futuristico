@@ -1,0 +1,1 @@
+g++ -o ./build/restaurante_app ./*.cpp

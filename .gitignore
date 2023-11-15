@@ -34,4 +34,4 @@
 
 .devcontainer
 
-./resources/chefes/*.txt
+/resources/chefes/*.txt

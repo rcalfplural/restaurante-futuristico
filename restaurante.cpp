@@ -19,9 +19,16 @@ Chef *Restaurante::getChef(unsigned int mesa) {
     return nullptr;
 }
 
+
+Chef*   Restaurante::getChefDisponivel(){
+    return nullptr;
+}
+
 void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
     // Implemente seu código aqui...
 }
+
+
 
 void Restaurante::finalizarMesa(unsigned int mesa) {
     if (this->getChef(mesa) == nullptr) {

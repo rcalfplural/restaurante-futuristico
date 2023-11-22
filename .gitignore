@@ -33,5 +33,7 @@
 
 
 .devcontainer
+.vscode
 
 /resources/chefes/*.txt
+/build/*

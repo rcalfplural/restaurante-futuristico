@@ -5,6 +5,8 @@
 #include "restaurante.h"
 #include "chef.h"
 
+#define TESTAR
+
 using namespace std;
 
 /**
@@ -12,14 +14,15 @@ using namespace std;
  */
 void testarChefs() {
     Chef c1, c2;
-
+    c1.iniciarAtendimento(1);
+    sleep(3);
+    c1.preparar("Suco de Sapo Velho");
     sleep(2);
-    c1.iniciarAtendimento(4);
-    c1.preparar("bife com batatas fritas");
-    sleep(4);
-    c1.preparar("bolo de chocolate");
+    c1.preparar("Jiromba assada");
+    sleep(2);
+    c1.preparar("Carne de tucupi");
+    sleep(3);
     c1.finalizarAtendimento();
-    sleep(1);
 }
 
 bool encerrar(std::string &comando) {
@@ -78,5 +81,12 @@ int processarEntrada(std::istream &entrada) {
  *          1 (EXIT_FAILURE) quando a aplicação é encerrada devido a uma falha.
  */
 int main() {
+
+    #ifdef TESTAR
+    testarChefs();
+    return 0;
+    #else
+
     return processarEntrada(std::cin);
+    #endif
 }

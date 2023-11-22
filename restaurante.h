@@ -32,6 +32,8 @@ public:
     void fazerPedido(unsigned int mesa, const std::string &item);
     void finalizarMesa(unsigned int mesa);
 
+    Chef*   getChefDisponivel();
+
 private:
     static const unsigned int MAX_CHEFS = 100;
 

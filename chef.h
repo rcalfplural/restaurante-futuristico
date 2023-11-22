@@ -48,6 +48,8 @@ public:
 
 private:
 
+    void atualizarArquivo(const std::string info);
+
     class Atendimento;
 
     static unsigned int contador;
@@ -58,7 +60,7 @@ private:
     class Atendimento {
     public:
 
-        /**
+        /** 
          * Cria um objeto Atendimento vinculando sua existência a um processo filho em execução.
          * Quando este objeto é instanciado, um processo filho é criado juntamente a um canal de comunicação.
          *
@@ -66,11 +68,11 @@ private:
          */
         explicit Atendimento(unsigned int mesa);
 
-        /**
+        /** 
          * Destrói um objeto Atendimento.
          * Quando este é deletado, o processo vinculado a ele é encerrado.
          */
-        virtual ~Atendimento();
+        virtual ~Atendimento(); 
 
         void preparar(const string &pedido);
 
@@ -78,6 +80,7 @@ private:
 
         int fd[2] = {0, 0};
         pid_t pid;
+        friend class Chef;
     };
 
 };

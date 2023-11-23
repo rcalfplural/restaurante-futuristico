@@ -1,5 +1,16 @@
 # ninja log v5
-95	2263	1700349482363062500	CMakeFiles/restaurante_app.dir/chef.cpp.o	4ed8f3cd60d05d37
-83	2877	1700349041726663600	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	5ca4e4fc3a350f28
-63	2380	1700350555871749000	CMakeFiles/restaurante_app.dir/main.cpp.o	13c2bf7e55331e46
-2424	3497	1700350557000539200	restaurante_app	4a042168e8659c79
+40	3400	1700706947409704600	CMakeFiles/restaurante_app.dir/chef.cpp.o	4ed8f3cd60d05d37
+57	1509	1700707052599214000	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	5ca4e4fc3a350f28
+38	1560	1700707001590737000	CMakeFiles/restaurante_app.dir/main.cpp.o	13c2bf7e55331e46
+1538	2185	1700707053277148900	restaurante_app	9ea11fa093b540ea
+44	3240	1700706947244999300	CMakeFiles/restaurante_app.dir/mesa.cpp.o	8aa82141e8ca5677
+39	2035	1700754858179535700	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	5ca4e4fc3a350f28
+2058	2614	1700754858759877800	restaurante_app	9ea11fa093b540ea
+41	1496	1700754932429957700	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	5ca4e4fc3a350f28
+1519	1972	1700754932911960800	restaurante_app	9ea11fa093b540ea
+48	1720	1700755196065788000	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	5ca4e4fc3a350f28
+1743	2257	1700755196609458500	restaurante_app	9ea11fa093b540ea
+40	3266	1700755332880436000	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	5ca4e4fc3a350f28
+3301	4155	1700755333782032100	restaurante_app	9ea11fa093b540ea
+52	2569	1700755618543913500	CMakeFiles/restaurante_app.dir/restaurante.cpp.o	5ca4e4fc3a350f28
+2597	3040	1700755619021184500	restaurante_app	9ea11fa093b540ea

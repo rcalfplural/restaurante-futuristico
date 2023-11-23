@@ -81,7 +81,7 @@ int processarEntrada(std::istream &entrada) {
  *          1 (EXIT_FAILURE) quando a aplicação é encerrada devido a uma falha.
  */
 int main() {
-
+    std::cout << "Restaurante app!"<<endl;
     #ifdef TESTAR
     testarChefs();
     return 0;

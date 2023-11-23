@@ -25,7 +25,9 @@ Mesa *Restaurante::getMesa(unsigned int mesa) {
         return obj.numeroMesa == mesa;
     });
 
+
     if(it != this->mesas.end()){
+
         return &(*it);
     }
 
@@ -45,9 +47,6 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
 
     // Pegar o chefe responsavel pela tal mesa
     Mesa *mesaO = this->getMesa(mesa);
-
-
-
     // Se o chef for null dai "cadastra" um novo chef na tal mesa
     if(mesaO == nullptr){
         throw std::runtime_error("Mesa nao encontrada: "+std::to_string(mesa));
@@ -61,12 +60,14 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
 
         if(chefDisponivel == nullptr){
             // Adiciona na fila de espera
+            throw std::runtime_error("[ERRO]: Restaurante::fazerPedido. Não há chefes disponiveis! Favor implementar a fila de espera!");
         }
 
-        mesaO->assignChef(chef);
+        mesaO->assignChef(chefDisponivel);
+        mesaO->getChef()->iniciarAtendimento(mesaO->numeroMesa);
     }
 
-    chef->preparar(item);
+    mesaO->getChef()->preparar(item);
 }
 
 

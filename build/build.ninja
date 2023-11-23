@@ -67,6 +67,12 @@ build CMakeFiles/restaurante_app.dir/chef.cpp.o: CXX_COMPILER__restaurante_app_D
   OBJECT_DIR = CMakeFiles/restaurante_app.dir
   OBJECT_FILE_DIR = CMakeFiles/restaurante_app.dir
 
+build CMakeFiles/restaurante_app.dir/mesa.cpp.o: CXX_COMPILER__restaurante_app_Debug /workspaces/restaurante-futuristico/mesa.cpp || cmake_object_order_depends_target_restaurante_app
+  DEP_FILE = CMakeFiles/restaurante_app.dir/mesa.cpp.o.d
+  FLAGS = -g -std=gnu++23
+  OBJECT_DIR = CMakeFiles/restaurante_app.dir
+  OBJECT_FILE_DIR = CMakeFiles/restaurante_app.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target restaurante_app
@@ -75,7 +81,7 @@ build CMakeFiles/restaurante_app.dir/chef.cpp.o: CXX_COMPILER__restaurante_app_D
 #############################################
 # Link the executable restaurante_app
 
-build restaurante_app: CXX_EXECUTABLE_LINKER__restaurante_app_Debug CMakeFiles/restaurante_app.dir/main.cpp.o CMakeFiles/restaurante_app.dir/restaurante.cpp.o CMakeFiles/restaurante_app.dir/chef.cpp.o
+build restaurante_app: CXX_EXECUTABLE_LINKER__restaurante_app_Debug CMakeFiles/restaurante_app.dir/main.cpp.o CMakeFiles/restaurante_app.dir/restaurante.cpp.o CMakeFiles/restaurante_app.dir/chef.cpp.o CMakeFiles/restaurante_app.dir/mesa.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/restaurante_app.dir
   POST_BUILD = :

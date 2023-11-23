@@ -13,5 +13,10 @@
   "directory": "/workspaces/restaurante-futuristico/build",
   "command": "/usr/bin/g++ -g -std=gnu++23 -o CMakeFiles/restaurante_app.dir/chef.cpp.o -c /workspaces/restaurante-futuristico/chef.cpp",
   "file": "/workspaces/restaurante-futuristico/chef.cpp"
+},
+{
+  "directory": "/workspaces/restaurante-futuristico/build",
+  "command": "/usr/bin/g++ -g -std=gnu++23 -o CMakeFiles/restaurante_app.dir/mesa.cpp.o -c /workspaces/restaurante-futuristico/mesa.cpp",
+  "file": "/workspaces/restaurante-futuristico/mesa.cpp"
 }
 ]

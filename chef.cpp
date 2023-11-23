@@ -46,13 +46,11 @@ void Chef::preparar(const string &pedido) {
 
     this->atendimento->preparar(pedido);
     if(this->atendimento->pid < 1) return;
-    std::cout << "Chef está coisando para o atendimento." << endl;
     close(fd[LEITURA]); // Fecha a leitura pois aqui apenas a escrita será usada
     write(fd[ESCRITA], pedido.c_str(), pedido.size()+1);
 }
 
 void Chef::finalizarAtendimento() {
-    // Implemente seu código aqui...
     delete this->atendimento;
 }
 
@@ -69,6 +67,7 @@ Chef::Atendimento::Atendimento(const unsigned int mesa) {
 
 Chef::Atendimento::~Atendimento() {
     close(fd[LEITURA]);
+    close(fd[ESCRITA]);
     exit(0);
 }
 

@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "chef.h"
+#include "mesa.h"
 
 // Caso queira usar uma estrutura para armazenar as informações de um pedido...
 struct Pedido {
@@ -38,6 +39,8 @@ private:
     static const unsigned int MAX_CHEFS = 100;
 
     std::vector<Chef> chefs;
+    std::vector<Chef*> chefsDisponiveis;
+    std::vector<Mesa> mesas;
 
     // Como armazenar as informações das mesas?
     // Como armazenar os pedidos em espera?
@@ -48,7 +51,7 @@ private:
      * @param mesa número da mesa
      * @return um ponteiro para o Chef
      */
-    Chef *getChef(unsigned int mesa);
+    Mesa *getMesa(unsigned int mesa);
 };
 
 

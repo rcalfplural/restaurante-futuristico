@@ -8,4 +8,6 @@ add_executable(restaurante_app main.cpp
         restaurante.h
         chef.cpp
         chef.h
+        mesa.cpp
+        mesa.h
 )

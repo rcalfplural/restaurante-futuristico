@@ -35,7 +35,8 @@ void Chef::atualizarArquivo(const std::string info){
     nome << "ChefeCozinha_" << id;
 
     ofstream log;
-    log.open(CHEFE_COZINHA_DIR+nome.str() + ".txt");
+
+    log.open(CHEFE_COZINHA_DIR+nome.str() + ".txt", ios::app);
     log << info << endl;
     log.close();
 }

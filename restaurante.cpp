@@ -65,6 +65,8 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
         mesaO->getChef()->iniciarAtendimento(mesaO->numeroMesa);
     }
 
+    // Depois removo esses logs sem sentido
+    std::cout << "O chef "<<mesaO->getChef()->getID()<< " irá coisar o pedido "<<item <<  " para a mesa " << mesaO->numeroMesa << endl;
     mesaO->getChef()->preparar(item);
 }
 

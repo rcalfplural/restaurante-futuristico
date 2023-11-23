@@ -43,8 +43,6 @@ Chef *Restaurante::getChefDisponivel(){
 }
 
 void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
-    // Implemente seu código aqui...
-
     // Pegar o chefe responsavel pela tal mesa
     Mesa *mesaO = this->getMesa(mesa);
     // Se o chef for null dai "cadastra" um novo chef na tal mesa

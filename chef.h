@@ -66,7 +66,7 @@ private:
          *
          * @param mesa número da mesa ao qual este chef está preparando pedidos
          */
-        explicit Atendimento(unsigned int mesa);
+        explicit Atendimento(unsigned int mesa, Chef *chef);
 
         /** 
          * Destrói um objeto Atendimento.
@@ -77,7 +77,7 @@ private:
         void preparar(const string &pedido);
 
     private:
-
+        Chef *chef;
         int fd[2] = {0, 0};
         pid_t pid;
         friend class Chef;

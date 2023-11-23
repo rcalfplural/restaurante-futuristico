@@ -26,7 +26,7 @@ Chef::~Chef() = default;
 */
 void Chef::iniciarAtendimento(const unsigned int mesa) {
     // Implemente seu código aqui...
-    this->atendimento = new Chef::Atendimento(mesa);
+    this->atendimento = new Chef::Atendimento(mesa, this);
     
 }
 
@@ -54,14 +54,14 @@ void Chef::finalizarAtendimento() {
     delete this->atendimento;
 }
 
-Chef::Atendimento::Atendimento(const unsigned int mesa) {
+Chef::Atendimento::Atendimento(const unsigned int mesa, Chef *chef) {
     // Implemente seu código aqui...
+    this->chef = chef;
     if(pipe(this->fd) < 0){
         std::cerr << "Falhou o pipe!" << endl;
         return;
     }
 
-    std::cout << "iniciando pipe para comunicar o atendimento na mesa "<<mesa<<endl;
     this->pid = fork();
 }
 
@@ -76,5 +76,5 @@ void Chef::Atendimento::preparar(const string &pedido) {
     char recebimento[pedido.size()+1];
     close(this->fd[ESCRITA]);
     read(this->fd[LEITURA], recebimento, pedido.size()+1);
-    std::cout << "O Atendimento está recebendo o seguinte pedido: " << recebimento << endl;
+    this->chef->atualizarArquivo(pedido);
 }

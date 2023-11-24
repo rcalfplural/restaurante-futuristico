@@ -46,7 +46,11 @@ int processarEntrada(std::istream &entrada) {
         while (true) {
             std::string linha;
             std::getline(entrada, linha);
-            if (encerrar(linha)) break;
+            std::cout << "La linha: "<<linha<<endl;
+            if (encerrar(linha)) {
+                std::cout << "FIM PROGRAMA DETECTADO"<<endl;
+                break;
+            };
 
             int mesa;
             std::string pedido;
@@ -56,7 +60,10 @@ int processarEntrada(std::istream &entrada) {
             stream.ignore();
             std::getline(stream, pedido);
 
+            std::cout << "Mesa que entrou: "<<mesa<< " pedido que entrou "<<pedido<<endl;
+
             if (encerrar(pedido)) {
+                std::cout << "FIM PEDIDO DETECTADO"<<endl;
                 restaurante.finalizarMesa(mesa);
             } else {
                 restaurante.fazerPedido(mesa, pedido);

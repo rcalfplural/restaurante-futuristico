@@ -49,6 +49,7 @@ public:
 private:
 
     void atualizarArquivo(const std::string info);
+    void inicializarArquivo();
 
     class Atendimento;
 

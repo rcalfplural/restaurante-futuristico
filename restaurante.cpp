@@ -82,6 +82,7 @@ void Restaurante::finalizarMesa(unsigned int mesa) {
 
     // Finaliza atendimento do chef e readiciona ele na fila de chefes disponiveis
     chef->finalizarAtendimento();
+    mesaO->assignChef(nullptr);
     chefsDisponiveis.emplace_back(chef);
 }
 

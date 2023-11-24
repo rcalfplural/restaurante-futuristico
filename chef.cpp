@@ -12,9 +12,7 @@ unsigned int Chef::contador = 0;
 
 
 Chef::Chef() : id(++contador) {
-    stringstream nome;
-    nome << "ChefeCozinha_" << id;
-    this->atualizarArquivo(nome.str());
+    this->inicializarArquivo();
 }
 
 Chef::~Chef() = default;
@@ -38,6 +36,17 @@ void Chef::atualizarArquivo(const std::string info){
 
     log.open(CHEFE_COZINHA_DIR+nome.str() + ".txt", ios::app);
     log << info << endl;
+    log.close();
+}
+
+void Chef::inicializarArquivo(){
+    stringstream nome;
+    nome << "ChefeCozinha_" << id;
+
+    ofstream log;
+
+    log.open(CHEFE_COZINHA_DIR+nome.str() + ".txt", ios::trunc);
+    log << nome.str() << endl;
     log.close();
 }
 
@@ -69,7 +78,9 @@ Chef::Atendimento::Atendimento(const unsigned int mesa, Chef *chef) {
 Chef::Atendimento::~Atendimento() {
     close(fd[LEITURA]);
     close(fd[ESCRITA]);
-    exit(0);
+    if(this->pid > 0){
+        kill(this->pid, 0);
+    }
 }
 
 void Chef::Atendimento::preparar(const string &pedido) {

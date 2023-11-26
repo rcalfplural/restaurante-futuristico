@@ -53,16 +53,14 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
     Chef *chef = mesaO->getChef();
 
     if(chef == nullptr){
-        // "cadastra um novo chef na tal mesa"
-        Chef *chefDisponivel = getChefDisponivel();
-
-        if(chefDisponivel == nullptr){
-            // Adiciona na fila de espera
-            throw std::runtime_error("[ERRO]: Restaurante::fazerPedido. Não há chefes disponiveis! Favor implementar a fila de espera!");
+        std::cout << "Buscando por chefes disponiveis..."<<endl<<"Encontrado(s): "<<this->chefsDisponiveis.size()<<endl;
+        // implementar "contratação de chef"
+        Chef *chefDisp = this->getChefDisponivel();
+        if(chefDisp == nullptr){
+            // Implementar fila de espera
+            throw std::runtime_error("Não há mais chefs disponiveis para o atendimento");
         }
-
-        mesaO->assignChef(chefDisponivel);
-        mesaO->getChef()->iniciarAtendimento(mesaO->numeroMesa);
+        mesaO->assignChef(chefDisp);
     }
 
     // Depois removo esses logs sem sentido

@@ -75,11 +75,12 @@ private:
          */
         virtual ~Atendimento(); 
 
-        void preparar(const string &pedido);
+        void preparar();
 
     private:
         Chef *chef;
         int fd[2] = {0, 0};
+        int mesa;
         pid_t pid;
         friend class Chef;
     };

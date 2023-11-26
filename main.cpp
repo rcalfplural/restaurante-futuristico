@@ -60,22 +60,20 @@ int processarEntrada(std::istream &entrada) {
             stream.ignore();
             std::getline(stream, pedido);
 
-            std::cout << "Mesa que entrou: "<<mesa<< " pedido que entrou "<<pedido<<endl;
-
             if (encerrar(pedido)) {
                 std::cout << "FIM PEDIDO DETECTADO"<<endl;
-                restaurante.finalizarMesa(mesa);
+                std::cout << "Finalizar mesa " << mesa << " aqui."<<endl;
+                // restaurante.finalizarMesa(mesa);
             } else {
                 restaurante.fazerPedido(mesa, pedido);
             }
         }
-
+        std::cout << "O programa devia acabar imediatamente!"<<endl;
+        return EXIT_SUCCESS;
     } catch (exception &ex) {
         std::cerr << ex.what() << endl;
         return EXIT_FAILURE;
     }
-
-    return EXIT_SUCCESS;
 }
 
 /**

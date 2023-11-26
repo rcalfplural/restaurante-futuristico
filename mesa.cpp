@@ -9,4 +9,6 @@ Chef *Mesa::getChef(){
 
 void Mesa::assignChef(Chef *chef){
     this->chefResponsavel = chef;
+    if(chef == nullptr) return;
+    this->chefResponsavel->iniciarAtendimento(this->numeroMesa);
 }

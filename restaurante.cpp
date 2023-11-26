@@ -12,7 +12,7 @@ Restaurante::Restaurante(unsigned int qtdChefs, unsigned int qtdMesas) : chefs()
     // Instancia <qtdChefs> objetos Chef
     for (int i = 0; i < qtdChefs; i++) {
         chefs.emplace_back();
-        chefsDisponiveis.emplace_back(&(chefs.at(i)));
+        chefsDisponiveis.push_back(&(chefs.at(i)));
     }
 
     for(int i = 0; i < qtdMesas; i < i++){
@@ -84,7 +84,7 @@ void Restaurante::finalizarMesa(unsigned int mesa) {
     // Finaliza atendimento do chef e readiciona ele na fila de chefes disponiveis
     chef->finalizarAtendimento();
     mesaO->assignChef(nullptr);
-    chefsDisponiveis.emplace_back(chef);
+    chefsDisponiveis.push_back(chef);
 }
 
 

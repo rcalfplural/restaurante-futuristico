@@ -1,5 +1,6 @@
 #include "restaurante.h"
 #include <algorithm>
+#include <memory>
 
 Restaurante::Restaurante(unsigned int qtdChefs, unsigned int qtdMesas) : chefs(), mesas(), chefsDisponiveis() {
     if (qtdChefs > MAX_CHEFS) {
@@ -11,7 +12,7 @@ Restaurante::Restaurante(unsigned int qtdChefs, unsigned int qtdMesas) : chefs()
     // Instancia <qtdChefs> objetos Chef
     for (int i = 0; i < qtdChefs; i++) {
         chefs.emplace_back();
-        chefsDisponiveis.emplace_back(&chefs.at(i));
+        chefsDisponiveis.emplace_back(&(chefs.at(i)));
     }
 
     for(int i = 0; i < qtdMesas; i < i++){
@@ -50,17 +51,19 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
         throw std::runtime_error("Mesa nao encontrada: "+std::to_string(mesa));
     }
 
-    Chef *chef = mesaO->getChef();
-
-    if(chef == nullptr){
+    std::cout << "Pedido vindo da mesa " << mesaO->numeroMesa << endl;
+    std::cout << "Tem chefe disponivel: "<< mesaO->getChef() << endl;
+    
+    if(mesaO->getChef() == nullptr){
         std::cout << "Buscando por chefes disponiveis..."<<endl<<"Encontrado(s): "<<this->chefsDisponiveis.size()<<endl;
         // implementar "contratação de chef"
-        Chef *chefDisp = this->getChefDisponivel();
-        if(chefDisp == nullptr){
+        if(this->chefsDisponiveis.size() < 1){
             // Implementar fila de espera
-            throw std::runtime_error("Não há mais chefs disponiveis para o atendimento");
+            // throw std::runtime_error("Não há mais chefs disponiveis para o atendimento");
+            std::cerr << "Implemente a fila de espera!"<<endl;
+            return;
         }
-        mesaO->assignChef(chefDisp);
+        mesaO->assignChef(this->getChefDisponivel());
     }
 
     // Depois removo esses logs sem sentido

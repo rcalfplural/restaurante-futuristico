@@ -1,6 +1,6 @@
 #include "mesa.h"
 
-Mesa::Mesa(int numeroMesa): numeroMesa(numeroMesa) {
+Mesa::Mesa(int numeroMesa): numeroMesa(numeroMesa), chefResponsavel() {
 }
 
 Chef *Mesa::getChef(){

@@ -33,6 +33,7 @@ public:
     void fazerPedido(unsigned int mesa, const std::string &item);
     void finalizarMesa(unsigned int mesa);
     void consultarListaEspera();
+    void adicionarListaEspera(unsigned int mesa, const std::string &item);
 
     Chef*   getChefDisponivel();
 

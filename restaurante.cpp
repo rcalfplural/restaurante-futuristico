@@ -53,8 +53,8 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
 
     if(mesaO->getChef() == nullptr){
         if(this->chefsDisponiveis.size() < 1){
-            std::cout << "Pedido adicionado na fila de espera"<<endl;
-            this->listaEspera.push_back({ mesa, item });
+            // std::cout << "Pedido adicionado na fila de espera"<<endl;
+            this->adicionarListaEspera(mesa, item);
             return;
         }
         mesaO->assignChef(this->getChefDisponivel());
@@ -89,6 +89,10 @@ void Restaurante::consultarListaEspera(){
     Pedido pendente = this->listaEspera.front();
     this->listaEspera.erase(this->listaEspera.begin());
     this->fazerPedido(pendente.mesa, pendente.pedido);   
+}
+
+void Restaurante::adicionarListaEspera(unsigned int mesa, const std::string &item){
+    this->listaEspera.push_back({ mesa, item });
 }
 
 

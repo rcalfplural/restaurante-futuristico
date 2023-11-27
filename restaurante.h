@@ -32,16 +32,19 @@ public:
      */
     void fazerPedido(unsigned int mesa, const std::string &item);
     void finalizarMesa(unsigned int mesa);
+    void printChefs();
+    void printChefsDisponiveis();
 
     Chef*   getChefDisponivel();
 
 private:
     static const unsigned int MAX_CHEFS = 100;
 
-    std::vector<Chef> chefs;
+    std::vector<Chef*> chefs;
+    Chef *chefes;
     std::vector<Chef*> chefsDisponiveis;
     std::vector<Mesa> mesas;
-
+    std::vector<Pedido> listaEspera;
     // Como armazenar as informações das mesas?
     // Como armazenar os pedidos em espera?
 

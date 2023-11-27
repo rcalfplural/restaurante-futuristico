@@ -46,9 +46,7 @@ int processarEntrada(std::istream &entrada) {
         while (true) {
             std::string linha;
             std::getline(entrada, linha);
-            std::cout << "La linha: "<<linha<<endl;
             if (encerrar(linha)) {
-                std::cout << "FIM PROGRAMA DETECTADO"<<endl;
                 break;
             };
 

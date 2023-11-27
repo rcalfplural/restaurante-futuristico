@@ -9,15 +9,20 @@ Restaurante::Restaurante(unsigned int qtdChefs, unsigned int qtdMesas) : chefs()
         throw std::invalid_argument("Quantidade inválida de mesas: " + std::to_string(qtdMesas));
     }
 
+    this->chefes = new Chef[qtdChefs];
     // Instancia <qtdChefs> objetos Chef
     for (int i = 0; i < qtdChefs; i++) {
-        chefs.emplace_back();
-        chefsDisponiveis.push_back(&(chefs.at(i)));
+        // Chef elChef{};
+        chefs.emplace_back(&chefes[i]);
+        chefsDisponiveis.push_back(&chefes[i]);
     }
 
     for(int i = 0; i < qtdMesas; i < i++){
         mesas.emplace_back(i+1);
     }
+
+    this->printChefs();
+    this->printChefsDisponiveis();
 }
 
 Mesa *Restaurante::getMesa(unsigned int mesa) {
@@ -40,7 +45,20 @@ Chef *Restaurante::getChefDisponivel(){
     if(chefsDisponiveis.size() < 1) return nullptr;
     Chef *ret = chefsDisponiveis.front();
     chefsDisponiveis.erase(chefsDisponiveis.begin());
+    std::cout << "PEgando mesa disponivel: "<<ret->getID()<<endl;
     return ret;
+}
+
+void Restaurante::printChefs(){
+    for(int i = 0; i < this->chefs.size(); i++){
+        std::cout << "Chef_" << this->chefs.at(i)->getID() << endl;
+    }
+}
+
+void Restaurante::printChefsDisponiveis(){
+    for(int i = 0; i < this->chefsDisponiveis.size(); i++){
+        std::cout << "Chef_" << this->chefsDisponiveis.at(i)->getID() << endl;
+    }
 }
 
 void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
@@ -51,23 +69,18 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
         throw std::runtime_error("Mesa nao encontrada: "+std::to_string(mesa));
     }
 
-    std::cout << "Pedido vindo da mesa " << mesaO->numeroMesa << endl;
-    std::cout << "Tem chefe disponivel: "<< mesaO->getChef() << endl;
-    
     if(mesaO->getChef() == nullptr){
-        std::cout << "Buscando por chefes disponiveis..."<<endl<<"Encontrado(s): "<<this->chefsDisponiveis.size()<<endl;
-        // implementar "contratação de chef"
         if(this->chefsDisponiveis.size() < 1){
             // Implementar fila de espera
             // throw std::runtime_error("Não há mais chefs disponiveis para o atendimento");
-            std::cerr << "Implemente a fila de espera!"<<endl;
+            std::cout << "Pedido adicionado na fila de espera"<<endl;
+            this->listaEspera.push_back({ mesa, item });
             return;
         }
         mesaO->assignChef(this->getChefDisponivel());
     }
 
     // Depois removo esses logs sem sentido
-    std::cout << "O chef "<<mesaO->getChef()->getID()<< " irá coisar o pedido "<<item <<  " para a mesa " << mesaO->numeroMesa << endl;
     mesaO->getChef()->preparar(item);
 }
 
@@ -85,6 +98,12 @@ void Restaurante::finalizarMesa(unsigned int mesa) {
     chef->finalizarAtendimento();
     mesaO->assignChef(nullptr);
     chefsDisponiveis.push_back(chef);
+
+    // Verificar lista de espera
+    if(this->listaEspera.size() < 1) return;
+    Pedido pendente = this->listaEspera.front();
+    this->listaEspera.erase(this->listaEspera.begin());
+    this->fazerPedido(pendente.mesa, pendente.pedido);
 }
 
 

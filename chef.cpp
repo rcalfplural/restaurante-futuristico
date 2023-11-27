@@ -13,7 +13,6 @@ unsigned int Chef::contador = 0;
 
 
 Chef::Chef() : id(++contador) {
-    std::cout << "Acabei de criar o chefe "<<id<<endl;
     this->inicializarArquivo();
 }
 

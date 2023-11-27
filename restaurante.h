@@ -32,15 +32,12 @@ public:
      */
     void fazerPedido(unsigned int mesa, const std::string &item);
     void finalizarMesa(unsigned int mesa);
-    void printChefs();
-    void printChefsDisponiveis();
+    void consultarListaEspera();
 
     Chef*   getChefDisponivel();
 
 private:
     static const unsigned int MAX_CHEFS = 100;
-
-    std::vector<Chef*> chefs;
     Chef *chefes;
     std::vector<Chef*> chefsDisponiveis;
     std::vector<Mesa> mesas;

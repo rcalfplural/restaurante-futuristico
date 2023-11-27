@@ -46,8 +46,6 @@ void Chef::iniciarAtendimento(const unsigned int mesa) {
 }
 
 void Chef::preparar(const string &pedido) {
-    int *fd = this->atendimento->fd; 
-
     this->atendimento->preparar(pedido);
 }
 
@@ -58,12 +56,50 @@ void Chef::finalizarAtendimento() {
 Chef::Atendimento::Atendimento(const unsigned int mesa, Chef *chef) {
     this->chef = chef;
     this->mesa = mesa;
+    
+    /**
+     * IMPLEMENTAÇÃO DA PARTE DE IPC!!!!!! COMECANDO A FAZER MENOS DE 1 HORA DA ENTREGA SO PRA SABER!
+    */
+   if(pipe(this->fd) < 0){
+        throw runtime_error("Pipe falhou!");
+   }
+
+    if(this->pid < 0){
+        throw runtime_error("Fork falhou!!");
+    }
 }
 
 Chef::Atendimento::~Atendimento() {
     // TODO
+    close(this->fd[ESCRITA]);
+    close(this->fd[LEITURA]);
 }
 
 void Chef::Atendimento::preparar(const std::string &pedido) {
-    this->chef->atualizarArquivo("  - "+pedido);
+    this->pid = fork();
+
+    if(this->pid < 0){
+        throw runtime_error("Fork Falhou!");
+    }
+    else if(this->pid > 0){ // Processo pai
+        close(this->fd[ESCRITA]);
+
+        wait(nullptr);
+
+        char buffer[256];
+        ssize_t n = read(this->fd[LEITURA], buffer, sizeof(buffer));
+        if(n < 0) {
+            throw runtime_error("Deu bosta aqui na leitura");
+        }
+        std::cout << "Processo pai esta recebendo "<<buffer<<endl;
+        std::string mensagem = buffer;
+        this->chef->atualizarArquivo("  - "+mensagem);
+        close(this->fd[LEITURA]);
+    }else{ // Processo filho
+        std::cout << "Processo filho esta mandando "<<pedido.c_str()<<endl;
+        close(this->fd[LEITURA]);
+        write(this->fd[ESCRITA], pedido.c_str(), pedido.size()+1);
+        close(this->fd[ESCRITA]);
+        exit(0);
+    }
 }

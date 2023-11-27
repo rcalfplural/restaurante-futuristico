@@ -35,13 +35,16 @@ Mesa *Restaurante::getMesa(unsigned int mesa) {
     return nullptr;
 }
 
-
+/**
+ * Procura se há um chefe disponivel
+*/
 Chef *Restaurante::getChefDisponivel(){
     if(chefsDisponiveis.size() < 1) return nullptr;
     Chef *ret = chefsDisponiveis.front();
     chefsDisponiveis.erase(chefsDisponiveis.begin());
     return ret;
 }
+
 
 void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
     // Pegar o chefe responsavel pela tal mesa
@@ -82,7 +85,9 @@ void Restaurante::finalizarMesa(unsigned int mesa) {
     consultarListaEspera();
 }
 
-
+/**
+ * IMPLEMENTAÇÃO LISTA DE ESPERA
+*/
 void Restaurante::consultarListaEspera(){
     // Verificar lista de espera
     if(this->listaEspera.size() < 1) return;

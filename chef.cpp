@@ -82,8 +82,6 @@ void Chef::Atendimento::preparar(const std::string &pedido) {
         throw runtime_error("Fork Falhou!");
     }
     else if(this->pid > 0){ // Processo pai
-        close(this->fd[ESCRITA]);
-
         wait(nullptr);
 
         char buffer[256];
@@ -94,16 +92,13 @@ void Chef::Atendimento::preparar(const std::string &pedido) {
         std::cout << "Processo pai esta recebendo "<<buffer<<endl;
         std::string mensagem = buffer;
         this->chef->atualizarArquivo("  - "+mensagem);
-        close(this->fd[LEITURA]);
     }else{ // Processo filho
         std::cout << "Processo filho esta mandando "<<pedido.c_str()<<endl;
-        close(this->fd[LEITURA]);
         ssize_t escrito = write(this->fd[ESCRITA], pedido.c_str(), pedido.size()+1);
         if(escrito < 0){
             throw new runtime_error("Deu bosta aqui na escrita");
         }
         std::cout << escrito << " foi escrito!"<<endl;
-        close(this->fd[ESCRITA]);
         exit(0);
     }
 }

@@ -89,16 +89,13 @@ void Chef::Atendimento::preparar(const std::string &pedido) {
         if(lido < 0) {
             throw runtime_error("Deu bosta aqui na leitura");
         }
-        std::cout << "Processo pai esta recebendo "<<buffer<<endl;
         std::string mensagem = buffer;
         this->chef->atualizarArquivo("  - "+mensagem);
     }else{ // Processo filho
-        std::cout << "Processo filho esta mandando "<<pedido.c_str()<<endl;
         ssize_t escrito = write(this->fd[ESCRITA], pedido.c_str(), pedido.size()+1);
         if(escrito < 0){
             throw new runtime_error("Deu bosta aqui na escrita");
         }
-        std::cout << escrito << " foi escrito!"<<endl;
         exit(0);
     }
 }

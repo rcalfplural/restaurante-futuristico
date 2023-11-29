@@ -48,8 +48,8 @@ public:
 
 private:
 
-    void atualizarArquivo(const std::string info);
     void inicializarArquivo();
+    void atualizarArquivo(const std::string &info);
 
     class Atendimento;
 
@@ -75,11 +75,12 @@ private:
          */
         virtual ~Atendimento(); 
 
-        void preparar(const string &pedido);
+        void preparar(const std::string &pedido);
 
     private:
         Chef *chef;
         int fd[2] = {0, 0};
+        int mesa;
         pid_t pid;
         friend class Chef;
     };

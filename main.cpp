@@ -14,15 +14,15 @@ using namespace std;
  */
 void testarChefs() {
     Chef c1, c2;
-    c1.iniciarAtendimento(1);
-    sleep(3);
-    c1.preparar("Suco de Sapo Velho");
-    sleep(2);
-    c1.preparar("Jiromba assada");
-    sleep(2);
-    c1.preparar("Carne de tucupi");
-    sleep(3);
-    c1.finalizarAtendimento();
+    // c1.iniciarAtendimento(1);
+    // sleep(3);
+    // c1.preparar("Suco de Sapo Velho");
+    // sleep(2);
+    // c1.preparar("Jiromba assada");
+    // sleep(2);
+    // c1.preparar("Carne de tucupi");
+    // sleep(3);
+    // c1.finalizarAtendimento();
 }
 
 bool encerrar(std::string &comando) {
@@ -46,9 +46,7 @@ int processarEntrada(std::istream &entrada) {
         while (true) {
             std::string linha;
             std::getline(entrada, linha);
-            std::cout << "La linha: "<<linha<<endl;
             if (encerrar(linha)) {
-                std::cout << "FIM PROGRAMA DETECTADO"<<endl;
                 break;
             };
 
@@ -60,22 +58,18 @@ int processarEntrada(std::istream &entrada) {
             stream.ignore();
             std::getline(stream, pedido);
 
-            std::cout << "Mesa que entrou: "<<mesa<< " pedido que entrou "<<pedido<<endl;
-
             if (encerrar(pedido)) {
-                std::cout << "FIM PEDIDO DETECTADO"<<endl;
                 restaurante.finalizarMesa(mesa);
             } else {
                 restaurante.fazerPedido(mesa, pedido);
             }
         }
 
+        return EXIT_SUCCESS;
     } catch (exception &ex) {
         std::cerr << ex.what() << endl;
         return EXIT_FAILURE;
     }
-
-    return EXIT_SUCCESS;
 }
 
 /**
@@ -88,7 +82,6 @@ int processarEntrada(std::istream &entrada) {
  *          1 (EXIT_FAILURE) quando a aplicação é encerrada devido a uma falha.
  */
 int main() {
-    std::cout << "Restaurante app!"<<endl;
     #ifdef TESTAR
     testarChefs();
     return 0;

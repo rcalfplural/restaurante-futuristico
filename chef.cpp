@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <zconf.h>
+#include <sys/wait.h>
 
 unsigned int Chef::contador = 0;
 
@@ -17,20 +18,9 @@ Chef::Chef() : id(++contador) {
 
 Chef::~Chef() = default;
 
-/**
- * Acho que aqui vair vir o fork()
- * tambem instanceará um atendimento
- * e no atendimento iniciar o pipe
-*/
-void Chef::iniciarAtendimento(const unsigned int mesa) {
-    // Implemente seu código aqui...
-    this->atendimento = new Chef::Atendimento(mesa, this);
-    
-}
-
-void Chef::atualizarArquivo(const std::string info){
+void Chef::atualizarArquivo(const std::string &info){
     stringstream nome;
-    nome << "ChefeCozinha_" << id;
+    nome << "ChefeCozinha_" << this->id;
 
     ofstream log;
 
@@ -42,7 +32,6 @@ void Chef::atualizarArquivo(const std::string info){
 void Chef::inicializarArquivo(){
     stringstream nome;
     nome << "ChefeCozinha_" << id;
-
     ofstream log;
 
     log.open(CHEFE_COZINHA_DIR+nome.str() + ".txt", ios::trunc);
@@ -50,14 +39,14 @@ void Chef::inicializarArquivo(){
     log.close();
 }
 
-void Chef::preparar(const string &pedido) {
-    pid_t pid = this->atendimento->pid;   
-    int *fd = this->atendimento->fd; 
+void Chef::iniciarAtendimento(const unsigned int mesa) {
+    // Implemente seu código aqui...
+    this->atualizarArquivo("Mesa "+std::to_string(mesa)+": ");
+    this->atendimento = new Chef::Atendimento(mesa, this);
+}
 
+void Chef::preparar(const string &pedido) {
     this->atendimento->preparar(pedido);
-    if(this->atendimento->pid < 1) return;
-    close(fd[LEITURA]); // Fecha a leitura pois aqui apenas a escrita será usada
-    write(fd[ESCRITA], pedido.c_str(), pedido.size()+1);
 }
 
 void Chef::finalizarAtendimento() {
@@ -65,28 +54,48 @@ void Chef::finalizarAtendimento() {
 }
 
 Chef::Atendimento::Atendimento(const unsigned int mesa, Chef *chef) {
-    // Implemente seu código aqui...
     this->chef = chef;
-    if(pipe(this->fd) < 0){
-        std::cerr << "Falhou o pipe!" << endl;
-        return;
-    }
+    this->mesa = mesa;
+    
+    /**
+     * IMPLEMENTAÇÃO DA PARTE DE IPC!!!!!! COMECANDO A FAZER MENOS DE 1 HORA DA ENTREGA SO PRA SABER!
+    */
+   if(pipe(this->fd) < 0){
+        throw runtime_error("Pipe falhou!");
+   }
 
-    this->pid = fork();
+    if(this->pid < 0){
+        throw runtime_error("Fork falhou!!");
+    }
 }
 
 Chef::Atendimento::~Atendimento() {
-    close(fd[LEITURA]);
-    close(fd[ESCRITA]);
-    if(this->pid > 0){
-        kill(this->pid, 0);
-    }
+    // TODO
+    close(this->fd[ESCRITA]);
+    close(this->fd[LEITURA]);
 }
 
-void Chef::Atendimento::preparar(const string &pedido) {
-    if(this->pid > 0) return;
-    char recebimento[pedido.size()+1];
-    close(this->fd[ESCRITA]);
-    read(this->fd[LEITURA], recebimento, pedido.size()+1);
-    this->chef->atualizarArquivo(pedido);
+void Chef::Atendimento::preparar(const std::string &pedido) {
+    this->pid = fork();
+
+    if(this->pid < 0){
+        throw runtime_error("Fork Falhou!");
+    }
+    else if(this->pid > 0){ // Processo pai
+        wait(nullptr);
+
+        char buffer[256];
+        ssize_t lido = read(this->fd[LEITURA], buffer, sizeof(buffer));
+        if(lido < 0) {
+            throw runtime_error("Deu bosta aqui na leitura");
+        }
+        std::string mensagem = buffer;
+        this->chef->atualizarArquivo("  - "+mensagem);
+    }else{ // Processo filho
+        ssize_t escrito = write(this->fd[ESCRITA], pedido.c_str(), pedido.size()+1);
+        if(escrito < 0){
+            throw new runtime_error("Deu bosta aqui na escrita");
+        }
+        exit(0);
+    }
 }

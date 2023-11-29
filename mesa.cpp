@@ -1,6 +1,6 @@
 #include "mesa.h"
 
-Mesa::Mesa(int numeroMesa): numeroMesa(numeroMesa) {
+Mesa::Mesa(int numeroMesa): numeroMesa(numeroMesa), chefResponsavel() {
 }
 
 Chef *Mesa::getChef(){
@@ -9,4 +9,6 @@ Chef *Mesa::getChef(){
 
 void Mesa::assignChef(Chef *chef){
     this->chefResponsavel = chef;
+    if(chef == nullptr) return;
+    this->chefResponsavel->iniciarAtendimento(this->numeroMesa);
 }

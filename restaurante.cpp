@@ -1,17 +1,18 @@
 #include "restaurante.h"
 #include <algorithm>
+#include <memory>
 
-Restaurante::Restaurante(unsigned int qtdChefs, unsigned int qtdMesas) : chefs(), mesas(), chefsDisponiveis() {
+Restaurante::Restaurante(unsigned int qtdChefs, unsigned int qtdMesas) :mesas(), chefsDisponiveis() {
     if (qtdChefs > MAX_CHEFS) {
         throw std::invalid_argument("Quantidade inválida de chefs: " + std::to_string(qtdChefs));
     } else if (qtdMesas < qtdChefs || qtdMesas > qtdChefs * 4) {
         throw std::invalid_argument("Quantidade inválida de mesas: " + std::to_string(qtdMesas));
     }
 
+    this->chefes = new Chef[qtdChefs];
     // Instancia <qtdChefs> objetos Chef
     for (int i = 0; i < qtdChefs; i++) {
-        chefs.emplace_back();
-        chefsDisponiveis.emplace_back(&chefs.at(i));
+        chefsDisponiveis.push_back(&chefes[i]);
     }
 
     for(int i = 0; i < qtdMesas; i < i++){
@@ -34,13 +35,16 @@ Mesa *Restaurante::getMesa(unsigned int mesa) {
     return nullptr;
 }
 
-
+/**
+ * Procura se há um chefe disponivel
+*/
 Chef *Restaurante::getChefDisponivel(){
     if(chefsDisponiveis.size() < 1) return nullptr;
     Chef *ret = chefsDisponiveis.front();
     chefsDisponiveis.erase(chefsDisponiveis.begin());
     return ret;
 }
+
 
 void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
     // Pegar o chefe responsavel pela tal mesa
@@ -50,23 +54,16 @@ void Restaurante::fazerPedido(unsigned int mesa, const std::string &item) {
         throw std::runtime_error("Mesa nao encontrada: "+std::to_string(mesa));
     }
 
-    Chef *chef = mesaO->getChef();
-
-    if(chef == nullptr){
-        // "cadastra um novo chef na tal mesa"
-        Chef *chefDisponivel = getChefDisponivel();
-
-        if(chefDisponivel == nullptr){
-            // Adiciona na fila de espera
-            throw std::runtime_error("[ERRO]: Restaurante::fazerPedido. Não há chefes disponiveis! Favor implementar a fila de espera!");
+    if(mesaO->getChef() == nullptr){
+        if(this->chefsDisponiveis.size() < 1){
+            // std::cout << "Pedido adicionado na fila de espera"<<endl;
+            this->adicionarListaEspera(mesa, item);
+            return;
         }
-
-        mesaO->assignChef(chefDisponivel);
-        mesaO->getChef()->iniciarAtendimento(mesaO->numeroMesa);
+        mesaO->assignChef(this->getChefDisponivel());
     }
 
     // Depois removo esses logs sem sentido
-    std::cout << "O chef "<<mesaO->getChef()->getID()<< " irá coisar o pedido "<<item <<  " para a mesa " << mesaO->numeroMesa << endl;
     mesaO->getChef()->preparar(item);
 }
 
@@ -83,9 +80,24 @@ void Restaurante::finalizarMesa(unsigned int mesa) {
     // Finaliza atendimento do chef e readiciona ele na fila de chefes disponiveis
     chef->finalizarAtendimento();
     mesaO->assignChef(nullptr);
-    chefsDisponiveis.emplace_back(chef);
+    chefsDisponiveis.push_back(chef);
+
+    consultarListaEspera();
 }
 
+/**
+ * IMPLEMENTAÇÃO LISTA DE ESPERA
+*/
+void Restaurante::consultarListaEspera(){
+    // Verificar lista de espera
+    if(this->listaEspera.size() < 1) return;
+    Pedido pendente = this->listaEspera.front();
+    this->listaEspera.erase(this->listaEspera.begin());
+    this->fazerPedido(pendente.mesa, pendente.pedido);   
+}
 
+void Restaurante::adicionarListaEspera(unsigned int mesa, const std::string &item){
+    this->listaEspera.push_back({ mesa, item });
+}
 
 
